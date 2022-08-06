@@ -44,6 +44,7 @@ async function $_get(url: string, params: object) {
     data: res.data,
     headers: res.headers,
   };
+
   return format;
 }
 
@@ -54,7 +55,7 @@ const $_useSwr = (path: string, fetcher: any, options?: object) => {
     options ?? {
       onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
         if (error.status === 404) return;
-        if (retryCount >= 10) return;
+        if (retryCount >= 5) return;
         // 5초에 한 번 재검증합니다.
         setTimeout(() => revalidate({ retryCount }), 5000);
       },
